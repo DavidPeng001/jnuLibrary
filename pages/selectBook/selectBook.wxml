@@ -1,6 +1,8 @@
 <!--index.wxml-->
 
 <view class="section">
-  <input class="inputstr"placeholder='请输入要查询的信息'auto-focus/>
+  <form>
+    <input class="inputstr" placeholder='请输入要查询的信息' confirm-type='search' bindconfirm='bindconfirm' bindinput='bindinput' focus='true'/>   
+  </form>
 </view>
 
