@@ -1,0 +1,14 @@
+/**index.wxss**/
+.section{
+  padding: 10rpx 5rpx;
+  border-bottom: 1rpx #cecece;
+  left: 50rpx;
+}
+
+.section input{
+  border: solid 1rpx #ccc;
+  padding: 10rpx 5rpx;
+  background-color: #fff;
+  border-radius: 4rpx;
+  height: 30rpx;
+}

@@ -1,0 +1,11 @@
+{
+  "pages":[
+    "pages/selectBook/selectBook"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "暨大图书馆",
+    "navigationBarTextStyle":"black"
+  }
+}

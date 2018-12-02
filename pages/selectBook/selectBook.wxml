@@ -1,0 +1,6 @@
+<!--index.wxml-->
+
+<view class="section">
+  <input class="inputstr"placeholder='请输入要查询的信息'auto-focus/>
+</view>
+
