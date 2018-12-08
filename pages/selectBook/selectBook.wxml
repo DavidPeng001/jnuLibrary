@@ -5,4 +5,20 @@
     <input class="inputstr" placeholder='请输入要查询的信息' confirm-type='search' bindconfirm='bindconfirm' bindinput='bindinput' focus='true'/>   
   </form>
 </view>
+<scroll-view>
+  <view wx:for="{{contents}}" wx:for-item="content">
+    {{index}}
+    {{content.name}}
+    <view wx:for="{{content.auth}}" wx:for-item="author">
+      {{author}}
+    </view>
+    {{content.publish}}
+    <view wx:for="{{content.libinfo}}" wx:for-item="libinfo">
+      {{libinfo.location}}
+      {{libinfo.index}}
+      {{libinfo.status}}
+    </view>
+  </view>
+</scroll-view>
+
 
