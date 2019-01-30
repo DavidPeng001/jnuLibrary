@@ -1,11 +1,46 @@
 {
-  "pages":[
-    "pages/selectBook/selectBook"
+  "pages": [
+    "pages/search/search",
+    "pages/room/room",
+    "pages/book/book",
+    "pages/user/user",
+    "pages/login/login"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0380e5",
     "navigationBarTitleText": "暨大图书馆",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#515151",
+    "selectedColor": "#0380e5",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/search_blue.png",
+        "iconPath": "images/search.png",
+        "pagePath": "pages/search/search",
+        "text": "图书查询"
+      },
+      {
+        "selectedIconPath": "images/room_blue.png",
+        "iconPath": "images/room.png",
+        "pagePath": "pages/room/room",
+        "text": "研修室"
+      },
+      {
+        "selectedIconPath": "images/book_blue.png",
+        "iconPath": "images/book.png",
+        "pagePath": "pages/book/book",
+        "text": "图书借还"
+      },
+      {
+        "selectedIconPath": "images/user_blue.png",
+        "iconPath": "images/user.png",
+        "pagePath": "pages/user/user",
+        "text": "我"
+      }
+    ]
   }
 }

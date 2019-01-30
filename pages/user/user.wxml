@@ -1,0 +1,15 @@
+<!--pages/user/user.wxml-->
+<view class='loginView' bindtap='logintap'>
+  <view class='loginLeftView'>
+    <view >
+      <label class='loginLab'>立即登录</label>
+    </view>
+    <view>
+      <label class='loginTipLab'>登录学校图书馆帐号可进行更多操作</label>
+    </view>
+  </view>
+  <view class='loginRightView'>
+    <image class='loginIcon' src='/images/arrow_right.png'/>
+  </view>
+</view>
+

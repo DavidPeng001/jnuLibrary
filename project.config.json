@@ -6,14 +6,14 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": true,
-		"postcss": true,
+		"postcss": false,
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
-	"appid": "wxaf137e6c0aaa4a1c",
+	"appid": "wxa96c7d328904de7d",
 	"projectname": "jnuLibrary",
 	"debugOptions": {
 		"hidedInDevtools": []

@@ -1,0 +1,32 @@
+<!--index.wxml-->
+
+<view class="section">
+  <form>
+    <input placeholder='请输入要查询的信息' confirm-type='search' bindconfirm='bindconfirm' bindinput='bindinput'/>   
+  </form>
+</view>
+<scroll-view>
+  <view wx:for="{{contents}}" wx:for-item="content" class="content">
+    <view class="name">
+      {{content.name}}
+    </view>
+    <view class="author" >
+      <text>作者：</text>
+      <view wx:for="{{content.auth}}" wx:for-item="author" decode="{{true}}">
+        <text decode="{{true}}">{{author}}&nbsp;</text>
+      </view>
+    </view>
+    <view class="publish">
+      <text>出版：</text>
+      {{content.publish}}
+    </view>
+    <view wx:for="{{content.libinfo}}" wx:for-item="libinfo" class="libinfo">
+      {{libinfo.location}}
+      {{libinfo.index}}
+      {{libinfo.status}}
+    </view>
+    <view class='line'></view>
+  </view>
+</scroll-view>
+
+
