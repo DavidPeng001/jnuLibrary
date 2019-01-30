@@ -1,0 +1,22 @@
+<!--pages/login/login.wxml-->
+<view class='loginSection'>
+ 
+  <view class='inputView'>
+    <image class='icon' src='/images/id.png'/>
+    <input type='number' placeholder='人事编号/学号' bindinput='idInput'/>
+  </view>
+  <view class='line'></view>
+  <view class='inputView'>
+    <image class='icon' src='/images/password.png'/> 
+    <input password='True' type='number' placeholder='图书馆密码' bindinput='passwordLibInput'/>
+  </view>
+  <view class='line'></view>
+  <view class='inputView'>
+    <image class='icon' src='/images/password_2.png'/>
+    <input password='True' type='number' placeholder='学习空间密码' bindinput='passwordSpaceInput'/>
+  </view>
+  <view class='line'></view>
+  <button class='loginBtn' bindtap='loginBtnclk'>登录</button>
+
+</view>
+
