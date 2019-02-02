@@ -4,7 +4,7 @@ App({
     personnelno: null
   },
   onLaunch: function() {
-    this.quicklogin()
+    this.quicklogin
   },
   checkLoginStatus: function() {
     let{personnelno} = this.globalData
@@ -20,12 +20,12 @@ App({
     try {
       const value = wx.getStorageSync('session_key')
       if(value) {
-        wx.request({
-          url: 'https://davidp.top/api/quicklogin',
-          method: 'GET',
+        // wx.request({
+        //   url: 'https://davidp.top/api/quicklogin',
+        //   method: 'GET',
           
 
-        })
+        // })
         return true
       }
     } catch (e) {

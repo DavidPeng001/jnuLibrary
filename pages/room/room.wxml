@@ -1,2 +1,14 @@
 <!--pages/room/room.wxml-->
-<text>pages/room/room.wxml</text>
+<view class='pickerForm'>
+  <picker bindchange="startPickerChange" value="{{startIndex}}" range="{{startTimeArray}}">
+    <view>
+      开始时间：{{startTimeArray[startIndex]}}
+    </view>
+  </picker>
+  <picker bindchange="endPickerChange" value="{{endIndex}}" range="{{endTimeArray}}">
+    <view>
+      结束时间：{{endTimeArray[endIndex]}}
+    </view>
+  </picker>
+</view>
+

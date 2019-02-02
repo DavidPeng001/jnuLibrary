@@ -1,1 +1,9 @@
 /* pages/room/room.wxss */
+.pickerForm {
+  flex-direction: row;
+  display: flex
+}
+
+.pickerForm picker {
+  
+}
