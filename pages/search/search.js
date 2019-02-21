@@ -12,18 +12,21 @@ Page({
   },
   bindconfirm: function () {
     console.log("Search Starting. first load...") 
-    let {contents } = this.data
     var that = this
-    this.getJson().then(function (data) {
+    that.setData({
+      
+      currentPage: 0,
+    })
+    this.getJson().then((data) => {
       that.setData(
         {
-          contents: contents.concat(data),
+          contents: data,
           isLoading: false,
           currentPage: 1,
         }
       )
-    }).catch(function (info) {
-      console.log('ERROR:' + info)
+    }).catch((info) => {
+      console.log('Search Fail:' + info)
     })
   },
   onReachBottom: function() {
@@ -35,8 +38,8 @@ Page({
     }
     this.setData({
       isLoading: true
-      })
-    this.getJson().then(function (data) {
+    })
+    this.getJson().then((data) => {
       that.setData(
         {
           contents: contents.concat(data),
@@ -44,35 +47,36 @@ Page({
           isLoading: false,
         }
       )
-    }).catch(function (info) {
-      console.log('ERROR:' + info)
+    }).catch((info) => {
+      console.log('Search Fail:' + info)
     })
   },
   getJson: function() {
+    // 亦可写成异步，setData写在异步函数内。
     return new Promise((resolve, reject) => {
       var jsonObj
       let{inputValue, currentPage} = this.data
+      
       wx.request({
         url: 'https://davidp.top/api/search/',
         method: 'POST',
         dataType: 'json',
         data: {
-          keyword: inputValue, //TODO: uncode to unicode
+          keyword: inputValue, //TODO: decode to unicode
           page: currentPage
         },
         header: {
           'content-type': 'application/json',
           'Accept': 'application/json'
         },
-        success: function (res) {//服务器返回数据
+        success: function (res) {
           if (res.statusCode == 200) {
-            console.log(res.data)
             resolve(res.data)
           } else {
-            reject(res.data)          }
+            reject('bad connection')          }
         },
         error: function (e) {
-          reject('网络出错')
+          reject('bad connection')
         }
           //TODO: 加载错误反馈
       })

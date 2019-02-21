@@ -1,6 +1,11 @@
 <!--pages/user/user.wxml-->
 <view class='loginView' bindtap='logintap'>
-  <view class='loginLeftView'>
+  <view class='loginLeftView' wx:if='{{personnelno}}'>
+    <view >
+      <label class='loginLab'>您好, {{personnelno}}</label>
+    </view>
+  </view>
+  <view class='loginLeftView' wx:else>
     <view >
       <label class='loginLab'>立即登录</label>
     </view>
