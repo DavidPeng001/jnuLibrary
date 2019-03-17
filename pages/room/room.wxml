@@ -1,14 +1,21 @@
 <!--pages/room/room.wxml-->
-<view class='pickerForm'>
-  <picker bindchange="startPickerChange" value="{{startIndex}}" range="{{startTimeArray}}">
-    <view>
-      开始时间：{{startTimeArray[startIndex]}}
-    </view>
-  </picker>
-  <picker bindchange="endPickerChange" value="{{endIndex}}" range="{{endTimeArray}}">
-    <view>
-      结束时间：{{endTimeArray[endIndex]}}
-    </view>
-  </picker>
+<view class='section'>
+  <view>请选择需要使用的时间范围</view>
+
+  <view class='pickerForm'>
+    
+    <picker bindchange="startPickerChange" value="{{startIndex}}" range="{{startTimeArray}}">
+      <view class='pickerView'>
+        开始时间：{{startTimeArray[startIndex]}}
+      </view>
+    </picker>
+    <picker bindchange="endPickerChange" value="{{endIndex}}" range="{{endTimeArray}}">
+      <view class='pickerView'>
+        结束时间：{{endTimeArray[endIndex]}}
+      </view>
+    </picker>
+  </view>
+  <view class='line'></view>
+  <button type='primary'>查询</button>
 </view>
 

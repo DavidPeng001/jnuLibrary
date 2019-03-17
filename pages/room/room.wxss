@@ -1,9 +1,21 @@
 /* pages/room/room.wxss */
+.section {
+  margin: 20rpx 20rpx 20rpx 20rpx;
+}
 .pickerForm {
   flex-direction: row;
-  display: flex
+  display: flex;
+  margin: 10rpx 0rpx 5rpx 0rpx;
 }
 
-.pickerForm picker {
+.pickerView {
+  width:300rpx;
+  height:60rpx;
   
+}
+.line {
+  background: #eeeeee;
+  height: 3rpx;
+  width: 100%
+
 }
