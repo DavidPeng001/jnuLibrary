@@ -17,7 +17,7 @@ App({
       console.log(header)
       wx.request({
         url: 'https://davidp.top/api/quicklogin/',
-        method: 'GET',
+        method: 'GET',  
         header: header,
         dataType: 'json',
         success: function(res) {

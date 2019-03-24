@@ -7,23 +7,28 @@
 </view>
 <scroll-view>
   <view wx:for="{{contents}}" wx:for-item="content" class="content">
-    <view class="name">
-      {{content.name}}
-    </view>
-    <view class="author" >
-      <text>作者：</text>
-      <view wx:for="{{content.auth}}" wx:for-item="author" decode="{{true}}">
-        <text decode="{{true}}">{{author}}&nbsp;</text>
+    <view bindtap="moreInfo" data-id ="{{content.id}}">
+      <view class="name">
+        {{content.title}}
       </view>
-    </view>
-    <view class="publish">
-      <text>出版：</text>
-      {{content.publish}}
-    </view>
-    <view wx:for="{{content.libinfo}}" wx:for-item="libinfo" class="libinfo">
-      {{libinfo.location}}
-      {{libinfo.index}}
-      {{libinfo.status}}
+      <view class="author" >
+        <text>作者：</text>
+        {{content.auth}}
+      </view>
+      <view class="publish">
+        <text>出版：</text>
+        {{content.publisher}}
+      </view>
+      <view class="publish">
+        <text>ISBN：</text>
+        {{content.isbn}}
+      </view>
+      <view class="publish">
+        <text>索书号：</text>
+        {{content.index}}
+      </view>
+      <!-- <view wx:if
+      </view> -->
     </view>
     <view class='line'></view>
   </view>

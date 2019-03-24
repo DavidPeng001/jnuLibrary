@@ -3,6 +3,7 @@ Page({
     inputValue: null,
     contents: [],
     currentPage: 0,
+    currentId: 0,
     isLoading: true,
   },
   bindinput: function(input) {
@@ -14,10 +15,13 @@ Page({
     console.log("Search Starting. first load...") 
     var that = this
     that.setData({
-      
       currentPage: 0,
     })
     this.getJson().then((data) => {
+      for(var i = 0; i < data.length; i++) {
+        data[i]['id'] = i + this.data.currentPage * 10
+
+      }
       that.setData(
         {
           contents: data,
@@ -40,6 +44,9 @@ Page({
       isLoading: true
     })
     this.getJson().then((data) => {
+      for (var i = 0; i < 10; i++) {
+        data[i]['id'] = i + this.data.currentPage * 10
+      }
       that.setData(
         {
           contents: contents.concat(data),
@@ -51,6 +58,7 @@ Page({
       console.log('Search Fail:' + info)
     })
   },
+  // 搜索到尾页，给出提示
   getJson: function() {
     // 亦可写成异步，setData写在异步函数内。
     return new Promise((resolve, reject) => {
@@ -73,7 +81,8 @@ Page({
           if (res.statusCode == 200) {
             resolve(res.data)
           } else {
-            reject('bad connection')          }
+            reject('bad connection')          
+          }
         },
         error: function (e) {
           reject('bad connection')
@@ -82,6 +91,19 @@ Page({
       })
     })
   // !important 从服务器接收数据无需JSON.parse，因为wx.request 的 dataType默认为 json，会在获得数据后自动进行一次JSONparse。
+  },
+  moreInfo: function(e) {
+    var id = e.currentTarget.dataset.id
+    this.setData({
+      currentId: id
+    })
+    this.getMoreInfo(this.data.contents[id].href)
+    
+  },
+  getMoreInfo: function (href) {
+    console.log(href)
+    // respData = "Test"
+    
   }
-
+    
 })
