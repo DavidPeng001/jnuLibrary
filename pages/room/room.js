@@ -10,7 +10,7 @@ Page({
       "18:00", "19:00", "20:00"],
     endTimeArray: ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
       "18:00", "19:00", "20:00", "21:00"],
-    
+    contents: []
   },
 
   onLoad: function (options) {
@@ -41,5 +41,39 @@ Page({
         startTimeArray: timeArray.slice(0, index + 13 - this.data.endTimeArray.length + 1)
       }
     )
+  },
+
+  roomInfo: function() {
+    var date = 3
+    var startTime = this.data.startTimeArray[this.data.startIndex].slice(0,-3)  // - means reverse
+    var endTime = this.data.endTimeArray[this.data.endIndex].slice(0, -3) 
+    this.getRoomInfo(date, parseInt(startTime), parseInt(endTime))
+  },
+
+  getRoomInfo: function(date, start, end) {
+    var that = this
+    wx.request({
+      url: 'https://davidp.top/api/roomsearch/',
+      data: {
+        date: date,
+        start: start,
+        end: end
+      },
+      header: {
+        'content-type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'POST',
+      dataType: 'json',
+      success: function(res) {
+        if (res.statusCode == 200) {
+          that.setData({
+            contents: res.data
+          })
+        }
+      },
+      fail: function(res) {},
+      
+    })
   }
 })

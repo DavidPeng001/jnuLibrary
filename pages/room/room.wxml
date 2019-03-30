@@ -16,6 +16,21 @@
     </picker>
   </view>
   <view class='line'></view>
-  <button type='primary'>查询</button>
+  <button type='primary' bindtap = "roomInfo">查询</button>
+
+  <view wx:for="{{contents}}" wx:for-item="content" class="content">>
+    <view class="author" >
+      <text>房间：</text>
+      {{content.date}}
+    </view>
+    <view class="publish">
+      <text>开始时间：</text>
+      {{content.start}}
+    </view>
+    <view class="publish">
+      <text>结束时间：</text>
+      {{content.end}}
+    </view>
+  </view>
 </view>
 

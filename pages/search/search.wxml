@@ -27,8 +27,9 @@
         <text>索书号：</text>
         {{content.index}}
       </view>
-      <!-- <view wx:if
-      </view> -->
+      <view wx:if = "{{content.addition}}" >
+        {{content.addition}}
+      </view>
     </view>
     <view class='line'></view>
   </view>

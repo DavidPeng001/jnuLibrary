@@ -102,7 +102,12 @@ Page({
   },
   getMoreInfo: function (href) {
     console.log(href)
-    // respData = "Test"
+    var respData = "Test"
+    var tempContents = this.data.contents
+    tempContents[this.data.currentId].addition = respData
+    this.setData({
+      contents: tempContents
+    })
     
   }
     
