@@ -102,12 +102,33 @@ Page({
   },
   getMoreInfo: function (href) {
     console.log(href)
-    var respData = "Test"
-    var tempContents = this.data.contents
-    tempContents[this.data.currentId].addition = respData
-    this.setData({
-      contents: tempContents
+    var that = this
+    wx.request({
+      url: 'https://davidp.top/api/searchinfo/',
+      data: {
+        href: href
+      },
+      header: {
+        'content-type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'POST',
+      dataType: 'json',
+      success: function (res) {
+        if (res.statusCode == 200) {
+          var tempContents = that.data.contents
+          tempContents[that.data.currentId].addition = res.data
+          that.setData({
+            contents: tempContents
+          })
+        }
+      },
+      fail: function (res) {
+        console.log("bad connection")
+      },
+
     })
+    
     
   }
     

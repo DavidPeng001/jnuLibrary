@@ -2,7 +2,8 @@
 Page({
   data: {
     startIndex: 0,
-    endIndex: 12,    // 21-8 
+    endIndex: 12,    // 21-8
+    dateIndex: 0,
     timeArray: ["8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
       "18:00", "19:00", "20:00", "21:00"], 
     // slice timeArray[] to get startTimeArray and endTimeArray
@@ -10,10 +11,27 @@ Page({
       "18:00", "19:00", "20:00"],
     endTimeArray: ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
       "18:00", "19:00", "20:00", "21:00"],
-    contents: []
+    contents: [],
+    dateArray: null,
   },
 
-  onLoad: function (options) {
+  onShow: function (options) {
+    var timeStamp = Date.parse(new Date()) ;
+    var secondPerDay = 24 * 60 *60;
+    var result = [];
+    for(var i = 0; i < 7; i += 1) {
+      result.push(this.getDateFromStamp(timeStamp + i * secondPerDay * 1000))
+    }
+    this.setData({
+      dateArray: result,
+    })
+  },
+  getDateFromStamp: function(timeStamp) {
+    var date = new Date(timeStamp);
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+    var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    return year + "-" + month + "-" + day;
   },
 
   startPickerChange: function(picker) {
@@ -43,8 +61,15 @@ Page({
     )
   },
 
+  datePickerChange: function(picker) {
+    var index = parseInt(picker.detail.value)
+    this.setData({
+      dateIndex: index,
+    })
+  },
+
   roomInfo: function() {
-    var date = 3
+    var date = this.data.dateIndex
     var startTime = this.data.startTimeArray[this.data.startIndex].slice(0,-3)  // - means reverse
     var endTime = this.data.endTimeArray[this.data.endIndex].slice(0, -3) 
     this.getRoomInfo(date, parseInt(startTime), parseInt(endTime))

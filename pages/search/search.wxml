@@ -5,7 +5,7 @@
     <input placeholder='请输入要查询的信息' confirm-type='search' bindconfirm='bindconfirm' bindinput='bindinput'/>   
   </form>
 </view>
-<scroll-view>
+<scroll-view class="bg">
   <view wx:for="{{contents}}" wx:for-item="content" class="content">
     <view bindtap="moreInfo" data-id ="{{content.id}}">
       <view class="name">
@@ -19,19 +19,22 @@
         <text>出版：</text>
         {{content.publisher}}
       </view>
-      <view class="publish">
+      <view class="isbn">
         <text>ISBN：</text>
         {{content.isbn}}
       </view>
-      <view class="publish">
+      <view class="bookid">
         <text>索书号：</text>
         {{content.index}}
       </view>
       <view wx:if = "{{content.addition}}" >
-        {{content.addition}}
+        <view wx:for = "{{content.addition.libinfo}}" wx:for-item = "info">
+          <view class="libLocation">{{info.location}}</view>
+          <view class="libStatus">{{info.status}}</view>
+        </view>
       </view>
     </view>
-    <view class='line'></view>
+    <!-- <view class='line'></view> -->
   </view>
 </scroll-view>
 

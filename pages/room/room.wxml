@@ -1,36 +1,55 @@
 <!--pages/room/room.wxml-->
-<view class='section'>
-  <view>请选择需要使用的时间范围</view>
-
-  <view class='pickerForm'>
-    
+<scroll-view class="bg">
+  <view class="tip">请选择需要使用的时间范围</view>
+  <view class="pickerForm">
+    <picker bindchange="datePickerChange" value="{{dateIndex}}" range="{{dateArray}}">
+      <view class='pickerView'>
+        <view class="pickerLabel">预订日期</view>
+        <view class="pickerValue">
+          {{dateArray[dateIndex]}}
+          <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
+        </view>
+      </view>
+    </picker>
+    <view class="line"></view>
     <picker bindchange="startPickerChange" value="{{startIndex}}" range="{{startTimeArray}}">
       <view class='pickerView'>
-        开始时间：{{startTimeArray[startIndex]}}
+        <view class="pickerLabel">开始时间</view>
+        <view class="pickerValue">
+          {{startTimeArray[startIndex]}}
+          <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
+        </view>
       </view>
     </picker>
+    <view class="line"></view>
     <picker bindchange="endPickerChange" value="{{endIndex}}" range="{{endTimeArray}}">
       <view class='pickerView'>
-        结束时间：{{endTimeArray[endIndex]}}
+        <view class="pickerLabel">结束时间</view>
+        <view class="pickerValue">
+          {{endTimeArray[endIndex]}}
+          <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
+        </view>
       </view>
     </picker>
   </view>
-  <view class='line'></view>
-  <button type='primary' bindtap = "roomInfo">查询</button>
-
-  <view wx:for="{{contents}}" wx:for-item="content" class="content">>
-    <view class="author" >
-      <text>房间：</text>
-      {{content.date}}
+  <!-- <view class='line'></view> -->
+  <button type='primary' bindtap = "roomInfo" class="searchBtn">查询</button>
+  <view wx:for="{{contents}}" wx:for-item="content" class="content">
+    <view class="content-room">
+      <text>研修室</text>
+      {{content.room}}
     </view>
-    <view class="publish">
-      <text>开始时间：</text>
-      {{content.start}}
+    <view class="content-time">
+      <view class="content-start">
+        <text>开始时间：</text>
+        {{content.start}}:00
+      </view>
+      <view class="content-end">
+        <text>结束时间：</text>
+        {{content.end}}:00
+      </view>
     </view>
-    <view class="publish">
-      <text>结束时间：</text>
-      {{content.end}}
-    </view>
+    
   </view>
-</view>
+</scroll-view>
 

@@ -1,21 +1,74 @@
 /* pages/room/room.wxss */
-.section {
-  margin: 20rpx 20rpx 20rpx 20rpx;
+page {
+  background-color: #dadada;
 }
-.pickerForm {
+.bg {
+  background-color: #dadada;
+}
+.tip {
+  padding: 15rpx 30rpx;
+  background-color: white;
+  /* font-size: smaller; */
+  color: #222
+}
+.pickerForm {  
+  border: solid 2rpx #eee;
+  border-radius: 5rpx;
+  box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
+  margin: 0rpx 0rpx 15rpx 0rpx;
+  background-color: white;
+}
+.pickerView {
   flex-direction: row;
   display: flex;
-  margin: 10rpx 0rpx 5rpx 0rpx;
+  margin: 15rpx 30rpx;
+  /* font-size: smaller; */
+  color: #222
 }
-
-.pickerView {
-  width:300rpx;
-  height:60rpx;
-  
+.pickerLabel {
+  flex: 1; 
+  align-items:center;
+}
+.pickerValue {
+  position: relative;
+  align-items:center;
+}
+.pickerIcon {
+  height: 25rpx;
+  width: 25rpx;
+}
+.searchBtn {
+  margin: 20rpx 20rpx;
 }
 .line {
   background: #eeeeee;
-  height: 3rpx;
+  height: 2rpx;
   width: 100%
 
+}
+.content{
+  background-color: #fff; 
+  margin: 15rpx 15rpx 5rpx 15rpx;
+  border: solid 0rpx #eee;
+  border-radius: 5rpx;
+  padding: 10rpx 20rpx;
+  box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
+  /* font-size: small */
+}
+.content-room {
+  font-size: smaller; 
+  font-weight: bold;
+}
+.content-time {
+  display: flex;
+  flex-direction: row;
+  font-size: smaller;
+}
+.content-start {
+  flex: 1; 
+  align-items:center;
+}
+.content-start {
+  position: relative;
+  align-items:center;
 }
