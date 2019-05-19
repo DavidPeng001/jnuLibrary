@@ -4,7 +4,8 @@
     "pages/room/room",
     "pages/book/book",
     "pages/user/user",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/roomBooking/roomBooking"
   ],
   "window": {
     "backgroundTextStyle": "light",

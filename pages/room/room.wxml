@@ -35,18 +35,20 @@
   <!-- <view class='line'></view> -->
   <button type='primary' bindtap = "roomInfo" class="searchBtn">查询</button>
   <view wx:for="{{contents}}" wx:for-item="content" class="content">
-    <view class="content-room">
-      <text>研修室</text>
-      {{content.room}}
-    </view>
-    <view class="content-time">
-      <view class="content-start">
-        <text>开始时间：</text>
-        {{content.start}}:00
+    <view bindtap="roomBooking" data-content ="{{content}}">
+      <view class="content-room">
+        <text>研修室</text>
+        {{content.room}}
       </view>
-      <view class="content-end">
-        <text>结束时间：</text>
-        {{content.end}}:00
+      <view class="content-time">
+        <view class="content-start">
+          <text>开始时间：</text>
+          {{content.start}}:00
+        </view>
+        <view class="content-end">
+          <text>结束时间：</text>
+          {{content.end}}:00
+        </view>
       </view>
     </view>
     

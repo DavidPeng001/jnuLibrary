@@ -97,8 +97,13 @@ Page({
           })
         }
       },
-      fail: function(res) {},
-      
+      fail: function(res) {
+
+      },
     })
+  },
+  roomBooking: function(e) {
+    var content = e.currentTarget.dataset.content
+    
   }
 })
