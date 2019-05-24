@@ -2,15 +2,15 @@
 Page({
   data: {
     startIndex: 0,
-    endIndex: 12,    // 21-8
+    endIndex: 13,    // 22-8
     dateIndex: 0,
     timeArray: ["8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
-      "18:00", "19:00", "20:00", "21:00"], 
+      "18:00", "19:00", "20:00", "21:00", "22:00"], 
     // slice timeArray[] to get startTimeArray and endTimeArray
     startTimeArray: ["8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
-      "18:00", "19:00", "20:00"],
-    endTimeArray: ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
       "18:00", "19:00", "20:00", "21:00"],
+    endTimeArray: ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
+      "18:00", "19:00", "20:00", "21:00", "22:00"],
     contents: [],
     dateArray: null,
   },
@@ -37,7 +37,7 @@ Page({
   startPickerChange: function(picker) {
     var index = parseInt(picker.detail.value)
     var timeArray = this.data.timeArray
-    var newIndex = this.data.endIndex + (13 - this.data.endTimeArray.length - index)  //括号内为索引位移量
+    var newIndex = this.data.endIndex + (14 - this.data.endTimeArray.length - index)  //括号内为索引位移量
     // if(newIndex < 0) {
     //   newIndex = 0
     // }
@@ -56,7 +56,7 @@ Page({
     this.setData(
       {
         endIndex: index,
-        startTimeArray: timeArray.slice(0, index + 13 - this.data.endTimeArray.length + 1)
+        startTimeArray: timeArray.slice(0, index + 14 - this.data.endTimeArray.length + 1)
       }
     )
   },
@@ -104,6 +104,9 @@ Page({
   },
   roomBooking: function(e) {
     var content = e.currentTarget.dataset.content
-    
+    var that = this
+    wx.navigateTo({
+      url: '/pages/roomBooking/roomBooking?room=' + content.room + '&date=' + that.data.dateIndex + '&start=' + content.start + '&end=' + content.end
+    }) 
   }
 })

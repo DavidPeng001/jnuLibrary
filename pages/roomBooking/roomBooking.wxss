@@ -1,1 +1,48 @@
 /* roomBooking.wxss */
+page {
+  background-color: #dadada;
+}
+.bg {
+  background-color: #dadada;
+}
+.tip {
+  padding: 15rpx 30rpx;
+  background-color: white;
+  /* font-size: smaller; */
+  color: #222
+}
+.pickerForm {  
+  border: solid 2rpx #eee;
+  border-radius: 5rpx;
+  box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
+  margin: 0rpx 0rpx 15rpx 0rpx;
+  background-color: white;
+}
+.pickerView {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 30rpx;
+  /* font-size: smaller; */
+  color: #222
+}
+.pickerLabel {
+  flex: 1; 
+  align-items:center;
+}
+.pickerValue {
+  position: relative;
+  align-items:center;
+}
+.pickerIcon {
+  height: 25rpx;
+  width: 25rpx;
+}
+.searchBtn {
+  margin: 20rpx 20rpx;
+}
+.line {
+  background: #eeeeee;
+  height: 2rpx;
+  width: 100%
+
+}
