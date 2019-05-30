@@ -24,20 +24,20 @@ page {
   box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
   /* font-size: small */
 }
-.content-room {
+.content-name {
   font-size: smaller; 
   font-weight: bold;
 }
-.content-time {
+.content-info {
   display: flex;
   flex-direction: row;
   font-size: smaller;
 }
-.content-start {
+.content-expire {
   flex: 1; 
   align-items:center;
 }
-.content-start {
+.content-renew {
   position: relative;
   align-items:center;
 }

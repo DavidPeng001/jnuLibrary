@@ -2,6 +2,7 @@
 const app = getApp()
 Page({
   data: {
+    isLogin: false,
     contents: [],
     errorInfo: null,
     popup: {
@@ -15,7 +16,10 @@ Page({
   onShow: function() {
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
-      headers = {
+      this.setData({
+        isLogin: true
+      })
+      var headers = {
         'content-type': 'application/json',
         'Accept': 'application/json'
       }
@@ -54,75 +58,18 @@ Page({
       })
     }
     else {
+      this.setData({
+        isLogin: false
+      })
       // not login
     }
 
   },
-  // loginBtnclk: function () {
-  //   let { id, passwordLib, passwordSpace } = this.data
-  //   // todo: check is empty
-  //   this.login(id, passwordLib, passwordSpace).then((res) => {
-  //     if (res.data.status == 0) {
-  //       wx.setStorageSync('session_key', res.header['Set-Cookie'])
-  //       app.globalData.personnelno = id
-  //       this.popupCancel()
-  //       wx.navigateBack({
-  //         delta: 1,
-  //       })
-  //     }
-  //     else if (res.data.status == 2) {
-  //       wx.setStorageSync('temp_session_key', res.header['Set-Cookie'])
-  //       var base64Data = res.data.captcha
-  //       base64Data = wx.arrayBufferToBase64(wx.base64ToArrayBuffer(base64Data))
-  //       const base64ImgUrl = "data:image/png;base64," + base64Data
-  //       this.popupShow(base64ImgUrl)
-  //     }
-  //     else {
-  //       // password wrong
-  //     }
-  //   }).catch((info) => {
-  //     console.log('Login fail: ' + info)
-  //     this.setData({
-  //       errorInfo: info,
-  //     })
-  //   })
-  // },
-  // login: function (id, passwordLib, passwordSpace) {
-  //   return new Promise((resolve, reject) => {
-  //     wx.request({
-  //       url: 'https://davidp.top/api/login/',
-  //       method: 'POST',
-  //       data: {
-  //         'id': id,
-  //         'passwd_lib': passwordLib,
-  //         'passwd_space': passwordSpace,
-  //       },
-  //       header: {
-  //         'content-type': 'application/json',
-  //         'Accept': 'application/json'
-  //       },
-  //       success: function (res) {
-  //         if (res.statusCode == 200 && res.header['Set-Cookie']) {
-  //           if (res.data.status != -1) {
-  //             resolve(res)
-  //           } else {
-  //             reject('bad conn')
-  //           }
-  //         } else {
-  //           reject('网络连接错误')
-  //         }
-  //       },
-  //       error: function (e) {
-  //         reject('网络连接错误')
-  //       }
-  //     })
-  //   })
-  // },
   captchaUpdate: function () {
     this.popupCancel()
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
-      headers = {
+      var headers = {
         'content-type': 'application/json',
         'Accept': 'application/json'
       }

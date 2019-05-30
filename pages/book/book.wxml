@@ -1,0 +1,32 @@
+<!--pages/room/room.wxml-->
+<scroll-view class="bg">
+  <view wx:if="{{isLogin}}" class="tip">text</view>
+  <view wx:else> text1</view>
+  <view wx:for="{{contents}}" wx:for-item="content" class="content">
+    <view bindtap="roomBooking" data-content ="{{content}}">
+      <view class="content-name">
+        {{content.book_name}}
+      </view>
+      <view class="content-info">
+        <view class="content-expire">
+
+          {{content.book_expire_time}}到期
+        </view>
+        <view class="content-renew">
+          <view wx:if="{{content.book_renew_times==0}}">
+          可续借
+          </view>
+          <view wx:else>
+          不可续借
+          </view>
+        </view>
+      </view> 
+    </view>
+    
+  </view>
+</scroll-view>
+<view class="popup">
+    <import src="/template/captchaPopup.wxml" />
+    <template is="captchaPopup" data="{{...popup}}" />
+  </view>
+

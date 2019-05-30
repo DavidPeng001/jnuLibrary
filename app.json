@@ -5,7 +5,8 @@
     "pages/book/book",
     "pages/user/user",
     "pages/login/login",
-    "pages/roomBooking/roomBooking"
+    "pages/roomBooking/roomBooking",
+    "pages/renew/renew"
   ],
   "window": {
     "backgroundTextStyle": "light",
