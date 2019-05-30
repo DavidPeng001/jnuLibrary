@@ -93,9 +93,10 @@ Page({
     var date = this.data.dateIndex
     var startTime = this.data.startTimeArray[this.data.startIndex].slice(0, -3)  // - means reverse
     var endTime = this.data.endTimeArray[this.data.endIndex].slice(0, -3)
-    var that = this
+    var that = this 
+    // fixme headers
     wx.request({
-      url: 'https://davidp.top/api/roombooking/',
+      url: 'https://davidp.top/api/roombooking/', 
       data: {
         room: that.data.roomName,
         date: date,
