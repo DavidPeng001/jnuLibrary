@@ -4,12 +4,15 @@ Page({
   data: {
     isLogin: false,
     contents: [],
+    currentContent: null,
     errorInfo: null,
     popup: {
       popupHidden: true,
       base64ImgUrl: null
     },
-    popupCaptcha: ""
+    popupCaptcha: "",
+    popupMode: 0,
+    // 0 for nothing  1 for renew search  2 for renew
   },
   onLoad: function (options) {
   },
@@ -42,6 +45,9 @@ Page({
               var base64Data = res.data.captcha
               base64Data = wx.arrayBufferToBase64(wx.base64ToArrayBuffer(base64Data))
               const base64ImgUrl = "data:image/png;base64," + base64Data
+              that.setData({
+                popupMode: 1
+              })
               that.popupShow(base64ImgUrl)
             }
             else {
@@ -92,6 +98,9 @@ Page({
               var base64Data = res.data.captcha
               base64Data = wx.arrayBufferToBase64(wx.base64ToArrayBuffer(base64Data))
               const base64ImgUrl = "data:image/png;base64," + base64Data
+              that.setData({
+                popupMode: 1
+              })
               that.popupShow(base64ImgUrl)
             }
             else {
@@ -126,45 +135,181 @@ Page({
     })
   },
   popupConfirm: function () {
+    if (this.data.popupMode == 1) {
+      const cookie = wx.getStorageSync('temp_session_key')
+      if (inputCaptcha != "" && cookie) {
+        var headers = {
+          'content-type': 'application/json',
+          'Accept': 'application/json'
+        }
+        headers.Cookie = cookie
+        var that = this
+        wx.request({
+          url: 'https://davidp.top/api/renewsearch/captcha/',
+          data: {
+            captcha: that.data.inputCaptcha
+          },
+          header: headers,
+          method: 'POST',
+          dataType: 'json',
+          success: function (res) {
+            if (res.statusCode == 200) {
+              switch (res.data.status) {
+                case 0:
+                  wx.setStorageSync('session_key', res.header['Set-Cookie'])
+                  that.popupCancel()
+                  break
+                case 1:
+                  // password wrong
+                  break
+                case -1:
+                  //server error
+                  break
+                case 101:
+                  // 验证码错误
+                  that.captchaUpdate()
+                  break
+                case 102:
+                  that.popupCancel()
+                  break
+                default:
+                // unkonwn login e
+              }
+            }
+            else {
+              console.log("bad connection")
+            }
+          },
+          fail: function (res) {
+            console.log("bad connection")
+          },
+        })
+      }
+      else if (inputCaptcha == "") {
+        return
+      }
+      else {
+        // no cookie
+      }
+    }
+    else if (this.data.popupMode == 2) {
+      const cookie = wx.getStorageSync('temp_session_key')
+      if (inputCaptcha != "" && cookie) {
+        var headers = {
+          'content-type': 'application/json',
+          'Accept': 'application/json'
+        }
+        headers.Cookie = cookie
+        var that = this
+        wx.request({
+          url: 'https://davidp.top/api/renew/captcha/',
+          data: {
+            captcha: that.data.inputCaptcha
+          },
+          header: headers,
+          method: 'POST',
+          dataType: 'json',
+          success: function (res) {
+            if (res.statusCode == 200) {
+              switch (res.data.status) {
+                case 0:
+                  wx.setStorageSync('session_key', res.header['Set-Cookie'])
+                  that.popupCancel()
+                  break
+                case 1:
+                  // password wrong
+                  break
+                case 2:
+                  // can't renew
+                  break
+                case -1:
+                  //server error
+                  break
+                case 101:
+                  // 验证码错误
+                  that.renewCaptchaUpdate()
+                  break
+                case 102:
+                  that.popupCancel()
+                  break
+                default:
+                // unkonwn login error
+              }
+            }
+            else {
+              console.log("bad connection")
+            }
+          },
+          fail: function (res) {
+            console.log("bad connection")
+          },
+        })
+      }
+      else if (inputCaptcha == "") {
+        return
+      }
+      else {
+        // no cookie
+      }
+    }
+    else {
+      this.popupCancel()
+    }
+  },
+  popupCancel: function () {
+    this.setData({
+      popup: {
+        popupHidden: true,
+        base64ImgUrl: null
+      },
+      popupCaptcha: "",
+      popupMode: 0
+    })
+  },
 
-    const cookie = wx.getStorageSync('temp_session_key')
-    if (inputCaptcha != "" && cookie) {
-      headers = {
+  renewTap: function() {
+    var content = e.currentTarget.dataset.content
+    if (content.book_renew_times != 0) {
+      // already renewed
+      return
+    }
+    const cookie = wx.getStorageSync('session_key')
+    if (cookie) {
+      this.setData({
+        isLogin: true
+      })
+      var headers = {
         'content-type': 'application/json',
         'Accept': 'application/json'
       }
       headers.Cookie = cookie
       var that = this
       wx.request({
-        url: 'https://davidp.top/api/renewsearch/captcha/',
-        data: {
-          captcha: that.data.inputCaptcha
-        },
+        url: 'https://davidp.top/api/renew/',
         header: headers,
         method: 'POST',
+        data: {
+          bookid: content.book_id
+        },
         dataType: 'json',
         success: function (res) {
           if (res.statusCode == 200) {
-            switch (res.data.status) {
-              case 0:
-                wx.setStorageSync('session_key', res.header['Set-Cookie'])
-                that.popupCancel()
-                break
-              case 1:
-                // password wrong
-                break
-              case -1:
-                //server error
-                break
-              case 101:
-                // 验证码错误
-                that.captchaUpdate()
-                break
-              case 102:
-                that.popupCancel()
-                break
-              default:
-              // unkonwn login e
+            if (res.data.status == 0) {
+              // msgbox: success
+            }
+            else if (res.data.status == 1) {
+              wx.setStorageSync('temp_session_key', res.header['Set-Cookie'])
+              var base64Data = res.data.captcha
+              base64Data = wx.arrayBufferToBase64(wx.base64ToArrayBuffer(base64Data))
+              const base64ImgUrl = "data:image/png;base64," + base64Data
+              that.setData({
+                popupMode: 2,
+                currentContent: content
+              })
+              that.popupShow(base64ImgUrl)
+            }
+            else {
+              // back and try again
             }
           }
           else {
@@ -176,22 +321,74 @@ Page({
         },
       })
     }
-    else if (inputCaptcha == "") {
+    else {
+      this.setData({
+        isLogin: false
+      })
+      // not login
+    }
+  },
+  renewCaptchaUpdate: function() {
+
+    var content = this.data.currentContent
+    if (content.book_renew_times != 0) {
+      // already renewed
       return
     }
-    else {
-      // no cookie
+    const cookie = wx.getStorageSync('session_key')
+    if (cookie) {
+      this.setData({
+        isLogin: true
+      })
+      var headers = {
+        'content-type': 'application/json',
+        'Accept': 'application/json'
+      }
+      headers.Cookie = cookie
+      var that = this
+      wx.request({
+        url: 'https://davidp.top/api/renew/',
+        header: headers,
+        method: 'POST',
+        data: {
+          bookid: content.book_id
+        },
+        dataType: 'json',
+        success: function (res) {
+          if (res.statusCode == 200) {
+            if (res.data.status == 0) {
+              // msgbox: success
+            }
+            else if (res.data.status == 1) {
+              wx.setStorageSync('temp_session_key', res.header['Set-Cookie'])
+              var base64Data = res.data.captcha
+              base64Data = wx.arrayBufferToBase64(wx.base64ToArrayBuffer(base64Data))
+              const base64ImgUrl = "data:image/png;base64," + base64Data
+              that.setData({
+                popupMode: 2
+              })
+              that.popupShow(base64ImgUrl)
+            }
+            else {
+              // back and try again
+            }
+          }
+          else {
+            console.log("bad connection")
+          }
+        },
+        fail: function (res) {
+          console.log("bad connection")
+        },
+      })
     }
-
-  },
-  popupCancel: function () {
-    this.setData({
-      popup: {
-        popupHidden: true,
-        base64ImgUrl: null
-      },
-      popupCaptcha: ""
-    })
+    else {
+      this.setData({
+        isLogin: false
+      })
+      // not login
+    }
   }
+
 
 })

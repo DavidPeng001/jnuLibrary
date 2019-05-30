@@ -1,9 +1,7 @@
 <!--pages/room/room.wxml-->
 <scroll-view class="bg">
-  <view wx:if="{{isLogin}}" class="tip">text</view>
-  <view wx:else> text1</view>
   <view wx:for="{{contents}}" wx:for-item="content" class="content">
-    <view bindtap="roomBooking" data-content ="{{content}}">
+    <view bindtap="renewTap" data-content ="{{content}}">
       <view class="content-name">
         {{content.book_name}}
       </view>

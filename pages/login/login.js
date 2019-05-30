@@ -99,7 +99,7 @@ Page({
     this.popupCancel()
     const cookie = wx.getStorageSync('temp_session_key')
     if (cookie) {
-      headers = {
+      var headers = {
         'content-type': 'application/json',
         'Accept': 'application/json'
       }
@@ -158,7 +158,7 @@ Page({
     
     const cookie = wx.getStorageSync('temp_session_key')
     if (inputCaptcha != "" && cookie) {
-      headers = {
+      var headers = {
         'content-type': 'application/json',
         'Accept': 'application/json'
       }
