@@ -18,6 +18,9 @@ Page({
       currentPage: 0,
     })
     this.getJson().then((data) => {
+      if (data.length == 0) {
+        this.commomModal("该关键词下没有搜索到图书")
+      }
       for(var i = 0; i < data.length; i++) {
         data[i]['id'] = i + this.data.currentPage * 10
 
@@ -30,7 +33,7 @@ Page({
         }
       )
     }).catch((info) => {
-      console.log('Search Fail:' + info)
+      this.commomModal(info)
     })
   },
   onReachBottom: function() {
@@ -55,7 +58,7 @@ Page({
         }
       )
     }).catch((info) => {
-      console.log('Search Fail:' + info)
+      this.commomModal(info)
     })
   },
   // 搜索到尾页，给出提示
@@ -81,11 +84,11 @@ Page({
           if (res.statusCode == 200) {
             resolve(res.data)
           } else {
-            reject('bad connection')          
+            reject("服务器维护中")          
           }
         },
         error: function (e) {
-          reject('bad connection')
+          reject('请检查网络连接')
         }
           //TODO: 加载错误反馈
       })
@@ -122,14 +125,31 @@ Page({
             contents: tempContents
           })
         }
+        else {
+          that.commomModal("服务器维护中")
+        }
       },
       fail: function (res) {
-        console.log("bad connection")
+        that.commomModal("请检查网络连接")
       },
 
     })
     
     
+  },
+
+   commomModal: function (content) {
+    wx.showModal({
+      title: "",
+      content: content,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+        }
+        else if (res.cancel) {
+        }
+      }
+    })
   }
     
 })

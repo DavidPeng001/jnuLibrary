@@ -89,12 +89,12 @@ Page({
       dateIndex: index,
     })
   },
-  bindtap: function () {
+  bindtap: function () {  // confirm?
     var date = this.data.dateIndex
     var startTime = this.data.startTimeArray[this.data.startIndex].slice(0, -3)  // - means reverse
     var endTime = this.data.endTimeArray[this.data.endIndex].slice(0, -3)
     var that = this 
-    // fixme headers
+    // fixme headers  
     wx.request({
       url: 'https://davidp.top/api/roombooking/', 
       data: {
@@ -111,17 +111,29 @@ Page({
       dataType: 'json',
       success: function (res) {
         if (res.statusCode == 200) {
-          console.log(res.data)
-          that.setData({
-            contents: res.data
-          })
+          switch (res.data.status) {
+            case 0:
+              that.commomModal("预订成功")
+              break
+            case 1:
+              that.commomModal("该时段已被占用")
+              break
+            case 2:
+              that.commomModal("无法申请到网站Cookie，请稍后再试")
+              break
+            case 3:
+              that.commomModal("帐号异常，请重新登录")
+              break
+            default:
+              that.commomModal("服务器维护中")
+          }
         }
         else {
-          console.log("bad connection")
+          this.commomModal("服务器维护中")
         }
       },
       fail: function (res) {
-        console.log("bad connection")
+        this.commomModal("请检查网络连接")
       },
     })
   }

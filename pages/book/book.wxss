@@ -5,16 +5,16 @@ page {
 .bg {
   background-color: #dadada;
 }
-.tip {
+/* .tip {
   padding: 15rpx 30rpx;
   background-color: white;
-  /* font-size: smaller; */
   color: #222;
   border: solid 2rpx #eee;
   border-radius: 5rpx;
   box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
   margin: 0rpx 0rpx 15rpx 0rpx;
-}
+} 
+*/
 .content{
   background-color: #fff; 
   margin: 15rpx 15rpx 5rpx 15rpx;

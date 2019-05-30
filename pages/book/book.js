@@ -1,17 +1,19 @@
 // pages/login/login.js
 const app = getApp()
+
+// return 1 means can't get cookie again ,usually means password changing or account abnormal 
 Page({
   data: {
-    isLogin: false,
+    isTips: false,  // true -> fullscreen tip
     contents: [],
     currentContent: null,
-    errorInfo: null,
+    errorTip: "您尚未登录",
     popup: {
       popupHidden: true,
       base64ImgUrl: null
     },
     popupCaptcha: "",
-    popupMode: 0,
+    popupMode: 0,  // fixme
     // 0 for nothing  1 for renew search  2 for renew
   },
   onLoad: function (options) {
@@ -20,7 +22,7 @@ Page({
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
       this.setData({
-        isLogin: true
+        isTips: false
       })
       var headers = {
         'content-type': 'application/json',
@@ -51,21 +53,21 @@ Page({
               that.popupShow(base64ImgUrl)
             }
             else {
-              // back and try again
+              this.commomModal("服务器维护中")
             }
           }
           else {
-            console.log("bad connection")
+            this.commomModal("服务器维护中")
           }
         },
         fail: function (res) {
-          console.log("bad connection")
+          this.commomModal("请检查网络连接")
         },
       })
     }
     else {
       this.setData({
-        isLogin: false
+        isTips: true
       })
       // not login
     }
@@ -104,19 +106,23 @@ Page({
               that.popupShow(base64ImgUrl)
             }
             else {
-              // back and try again
+              that.commomModal("服务器维护中")
             }
           }
           else {
-            console.log("bad connection")
+            that.commomModal("服务器维护中")
           }
         },
         fail: function (res) {
-          console.log("bad connection")
+          that.commomModal("请检查网络连接")
         },
       })
     }
     else {
+      //todo: quit login status
+      this.setData({
+        isTips: true
+      })
       // not login
     }
   },
@@ -160,20 +166,38 @@ Page({
                   that.popupCancel()
                   break
                 case 1:
-                  // password wrong
+                  that.commomModal("无法申请到网站Cookie，请稍后再试")
+                  that.popupCancel()
                   break
                 case -1:
-                  //server error
+                  that.commomModal("服务器维护中")
+                  that.popupCancel()
                   break
                 case 101:
-                  // 验证码错误
-                  that.captchaUpdate()
+                  wx.showModal({
+                    title: "",
+                    content: "验证码错误",
+                    
+                    success: function (res) {
+                      if (res.confirm) {
+                        that.captchaUpdate()
+                      }
+                      else if (res.cancel) {
+                        that.popupCancel()
+                      }
+                    }
+                  })
                   break
                 case 102:
+                  that.commomModal("账号异常，请重新登录")
+                  that.setData({
+                    isTips: true
+                  })
                   that.popupCancel()
                   break
                 default:
-                // unkonwn login e
+                  that.commomModal("未知登录问题")
+                  that.popupCancel()
               }
             }
             else {
@@ -189,6 +213,7 @@ Page({
         return
       }
       else {
+        
         // no cookie
       }
     }
@@ -217,7 +242,7 @@ Page({
                   that.popupCancel()
                   break
                 case 1:
-                  // password wrong
+                  // 
                   break
                 case 2:
                   // can't renew
@@ -263,7 +288,7 @@ Page({
         base64ImgUrl: null
       },
       popupCaptcha: "",
-      popupMode: 0
+      // popupMode: 0
     })
   },
 
@@ -276,7 +301,7 @@ Page({
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
       this.setData({
-        isLogin: true
+        isTips: true
       })
       var headers = {
         'content-type': 'application/json',
@@ -323,7 +348,7 @@ Page({
     }
     else {
       this.setData({
-        isLogin: false
+        isTips: false
       })
       // not login
     }
@@ -338,7 +363,7 @@ Page({
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
       this.setData({
-        isLogin: true
+        isTips: true
       })
       var headers = {
         'content-type': 'application/json',
@@ -384,10 +409,25 @@ Page({
     }
     else {
       this.setData({
-        isLogin: false
+        isTips: false
       })
       // not login
     }
+  },
+
+
+  commomModal: function ( content) {
+    wx.showModal({
+      title: "",
+      content: content,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+        }
+        else if (res.cancel) {
+        }
+      }
+    })
   }
 
 

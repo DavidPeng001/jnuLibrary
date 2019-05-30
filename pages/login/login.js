@@ -2,9 +2,9 @@
 const app = getApp()
 Page({
   data: {
-    id: null,
-    passwordLib: null,
-    passwordSpace: null,
+    id: "",
+    passwordLib: "",
+    passwordSpace: "",
     errorInfo: null,
     popup: {
       popupHidden: true,
@@ -36,8 +36,13 @@ Page({
     )
   },
   loginBtnclk: function () {
+    
     let { id, passwordLib, passwordSpace } = this.data 
     // todo: check is empty
+    if (id == "" || passwordLib == "" || passwordSpace == "" ) {
+      this.commomModal("请输入用户名与密码")
+      return
+    }
     this.login(id, passwordLib, passwordSpace).then((res) => {
       if (res.data.status == 0) {
         wx.setStorageSync('session_key', res.header['Set-Cookie'])
@@ -55,13 +60,10 @@ Page({
         this.popupShow(base64ImgUrl)
       }
       else {
-        // password wrong
+        this.commomModal("用户名或密码错误")
       }
     }).catch((info) => {
-      console.log('Login fail: ' + info)
-      this.setData({
-        errorInfo: info,
-      })
+      this.commomModal(info)
     })
   },
   login: function (id, passwordLib, passwordSpace) {
@@ -83,14 +85,14 @@ Page({
             if (res.data.status != -1) {
               resolve(res)
             } else {
-              reject('bad conn')
+              reject("服务器维护中")
             }
           } else {
-            reject('网络连接错误')
+            reject("服务器维护中")
           }
         },
         error: function (e) {
-          reject('网络连接错误')
+          reject("请检查网络连接")
         }
       })
     })
@@ -120,15 +122,17 @@ Page({
               that.popupShow(base64ImgUrl)
             }
             else {
-            // back and try again
+            that.popupCancel()
             }
           }
           else {
-            console.log("bad connection")
+            this.commomModal("服务器维护中")
+            that.popupCancel()
           }
         },
         fail: function (res) {
-          console.log("bad connection")
+          this.commomModal("请检查网络连接")
+          that.popupCancel()
         },
       })
     }
@@ -136,7 +140,8 @@ Page({
       return
     }
     else {
-      // no cookie
+      this.commomModal("请尝试重新登录")
+      that.popupCancel()
     }
 
   },
@@ -151,7 +156,7 @@ Page({
   },
   popupInput: function(input) {
     this.setData({
-      inputCaptcha: input.detail.value
+      inputCaptcha: input.detail.value 
     })
   },
   popupConfirm: function() {
@@ -180,22 +185,37 @@ Page({
                 that.popupCancel()
                 break
               case 101:
-              // 验证码错误
-                that.captchaUpdate()
+                wx.showModal({
+                  title: "",
+                  content: "验证码错误",
+                  success: function (res) {
+                    if (res.confirm) {
+                      that.captchaUpdate()
+                    }
+                    else if (res.cancel) {
+                      that.popupCancel()
+                    }
+                    
+                  }
+                })
+                
                 break
               case 102:
                 that.popupCancel()
                 break
               default:
-              // unkonwn login e
+                this.commomModal("请尝试重新登录")
+                that.popupCancel()
             }
           }
           else {
-            console.log("bad connection")
+            this.commomModal("服务器维护中")
+            that.popupCancel()
           }
         },
         fail: function (res) {
-          console.log("bad connection")
+          this.commomModal("请检查网络连接")
+          that.popupCancel()
         },
       })
     }
@@ -203,7 +223,8 @@ Page({
       return
     }
     else {
-      // no cookie
+      this.commomModal("请尝试重新登录")
+      that.popupCancel()
     }
     
   },
@@ -215,6 +236,19 @@ Page({
       },
       popupCaptcha: ""
     })
-  }
+  },
 
+  commomModal: function (content) {
+    wx.showModal({
+      title: "",
+      content: content,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+        }
+        else if (res.cancel) {
+        }
+      }
+    })
+  }
 })

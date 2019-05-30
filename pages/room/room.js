@@ -92,13 +92,21 @@ Page({
       dataType: 'json',
       success: function(res) {
         if (res.statusCode == 200) {
-          that.setData({
-            contents: res.data
-          })
+          if (res.data == []) {
+            that.commomModal("该时段暂无空闲研修间，请尝试更改时段与日期")
+          }
+          else {
+            that.setData({
+              contents: res.data
+            })
+          }
+        }
+        else {
+          this.commomModal("服务器维护中")
         }
       },
       fail: function(res) {
-
+        this.commomModal("请检查网络连接")
       },
     })
   },
@@ -108,5 +116,19 @@ Page({
     wx.navigateTo({
       url: '/pages/roomBooking/roomBooking?room=' + content.room + '&date=' + that.data.dateIndex + '&start=' + content.start + '&end=' + content.end
     }) 
+  },
+
+  commomModal: function (content) {
+    wx.showModal({
+      title: "",
+      content: content,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+        }
+        else if (res.cancel) {
+        }
+      }
+    })
   }
 })
