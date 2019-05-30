@@ -17,6 +17,9 @@
   </view>
   <view class='line'></view>
   <button class='loginBtn' bindtap='loginBtnclk'>登录</button>
-
+  <view class="popup">
+    <import src="/template/captchaPopup.wxml" />
+    <template is="captchaPopup" data="{{...popup}}" />
+  </view>
 </view>
 

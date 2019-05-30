@@ -1,0 +1,13 @@
+<template name="captchaPopup">
+  <view>
+    <modal title="请输入验证码" confirm-text="确认" cancel-text="取消" hidden="{{popupHidden}}"
+      bindconfirm="popupConfirm" bindcancel="popupCancel">
+      <view class="popup-form">
+        <view style='width: 180px; height: 100rpx;background-size: 100% 100%; background-repeat: no-repeat;background-image: url({{base64ImgUrl}});'>
+        </view>
+        <input bindinput="popupInput" bindconfirm="popupConfirm" placeholder="验证码">
+        </input>
+      </view>
+    </modal> 
+  </view>
+</template>

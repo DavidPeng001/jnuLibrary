@@ -12,7 +12,7 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.7.0",
 	"appid": "wxa96c7d328904de7d",
 	"projectname": "jnuLibrary",
 	"debugOptions": {

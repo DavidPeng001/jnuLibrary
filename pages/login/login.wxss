@@ -8,7 +8,7 @@
   width: 60rpx;
   height: 60rpx;
 }
-
+    
 .loginSection {
   margin: 30rpx 20rpx 0rpx 20rpx;
   

@@ -1,1 +1,43 @@
 /* pages/book/book.wxss */
+page {
+  background-color: #dadada;
+}
+.bg {
+  background-color: #dadada;
+}
+.tip {
+  padding: 15rpx 30rpx;
+  background-color: white;
+  /* font-size: smaller; */
+  color: #222;
+  border: solid 2rpx #eee;
+  border-radius: 5rpx;
+  box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
+  margin: 0rpx 0rpx 15rpx 0rpx;
+}
+.content{
+  background-color: #fff; 
+  margin: 15rpx 15rpx 5rpx 15rpx;
+  border: solid 0rpx #eee;
+  border-radius: 5rpx;
+  padding: 10rpx 20rpx;
+  box-shadow: 5rpx 5rpx 5rpx 0rpx #aaa;
+  /* font-size: small */
+}
+.content-room {
+  font-size: smaller; 
+  font-weight: bold;
+}
+.content-time {
+  display: flex;
+  flex-direction: row;
+  font-size: smaller;
+}
+.content-start {
+  flex: 1; 
+  align-items:center;
+}
+.content-start {
+  position: relative;
+  align-items:center;
+}
