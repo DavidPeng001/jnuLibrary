@@ -96,6 +96,7 @@ Page({
     })
   },
   captchaUpdate: function() {
+    this.popupCancel()
     const cookie = wx.getStorageSync('temp_session_key')
     if (cookie) {
       headers = {
@@ -155,7 +156,7 @@ Page({
   },
   popupConfirm: function() {
     
-    const cookie = wx.getStorageSync('session_key')
+    const cookie = wx.getStorageSync('temp_session_key')
     if (inputCaptcha != "" && cookie) {
       headers = {
         'content-type': 'application/json',
