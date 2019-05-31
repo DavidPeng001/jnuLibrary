@@ -10,7 +10,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0380e5",
-    "navigationBarTitleText": "暨大图书馆",
+    "navigationBarTitleText": "暨南大学图书馆",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

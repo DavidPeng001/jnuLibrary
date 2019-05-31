@@ -28,9 +28,9 @@
         {{content.index}}
       </view>
       <view wx:if = "{{content.addition}}" >
-        <view wx:for = "{{content.addition.libinfo}}" wx:for-item = "info">
-          <view class="libLocation">{{info.location}}</view>
-          <view class="libStatus">{{info.status}}</view>
+        <view wx:for = "{{content.addition.libinfo}}" class="libinfo" wx:for-item = "info">
+          <view class="lib-location">{{info.location}}</view>
+          <view class="lib-status">{{info.status}}</view>
         </view>
       </view>
     </view>

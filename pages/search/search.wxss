@@ -36,6 +36,21 @@
   font-weight: bold;
 }
 
-.author, .publish, .isbn, .bookid, .libLocation, .libStatus {
+.author, .publish, .isbn, .bookid {
   font-size: small;
+}
+
+.libinfo {
+  margin: 10rpx 0 0 0;
+  flex-direction: row;
+  display: flex;
+  font-size: small;
+}
+.lib-location {
+  flex: 1;
+  align-items: center;
+}
+.lib-status {
+  position: relative;
+  align-items:center;
 }

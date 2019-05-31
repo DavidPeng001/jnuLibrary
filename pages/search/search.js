@@ -69,7 +69,7 @@ Page({
       let{inputValue, currentPage} = this.data
       
       wx.request({
-        url: 'https://davidp.top/api/search/',
+        url: 'http://127.0.0.1:8000/api/search/',
         method: 'POST',
         dataType: 'json',
         data: {
@@ -107,7 +107,7 @@ Page({
     console.log(href)
     var that = this
     wx.request({
-      url: 'https://davidp.top/api/searchinfo/',
+      url: 'http://127.0.0.1:8000/api/searchinfo/',
       data: {
         href: href
       },
