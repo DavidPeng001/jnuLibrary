@@ -1,13 +1,12 @@
 // pages/login/login.js
 const app = getApp()
 
-// return 1 means can't get cookie again ,usually means password changing or account abnormal 
 Page({
   data: {
     isTips: false,  // true -> fullscreen tip
     contents: [],
     currentContent: null,
-    errorTip: "您尚未登录",
+    tipMode: 0, // 0 for not login  1 for no content
     popup: {
       popupHidden: true,
       base64ImgUrl: null
@@ -38,6 +37,13 @@ Page({
         success: function (res) {
           if (res.statusCode == 200) {
             if (res.data.status == 0) {
+              if (res.data.table == []) {
+                that.setData({
+                  isTips: true,
+                  tipMode: 1
+                })
+                return
+              }
               that.setData({
                 contents: res.data.table
               })
@@ -53,21 +59,22 @@ Page({
               that.popupShow(base64ImgUrl)
             }
             else {
-              this.commomModal("服务器维护中")
+              that.commomModal("服务器维护中")
             }
           }
           else {
-            this.commomModal("服务器维护中")
+            that.commomModal("服务器维护中")
           }
         },
         fail: function (res) {
-          this.commomModal("请检查网络连接")
+          that.commomModal("请检查网络连接")
         },
       })
     }
     else {
       this.setData({
-        isTips: true
+        isTips: true,
+        tipMode: 0
       })
       // not login
     }
@@ -121,7 +128,8 @@ Page({
     else {
       //todo: quit login status
       this.setData({
-        isTips: true
+        isTips: true,
+        tipMode: 0
       })
       // not login
     }
@@ -166,7 +174,11 @@ Page({
                   that.popupCancel()
                   break
                 case 1:
-                  that.commomModal("无法申请到网站Cookie，请稍后再试")
+                  that.commomModal("账号异常，请重新登录")
+                  that.setData({
+                    isTips: true,
+                    tipMode: 0
+                  })
                   that.popupCancel()
                   break
                 case -1:
@@ -191,7 +203,8 @@ Page({
                 case 102:
                   that.commomModal("账号异常，请重新登录")
                   that.setData({
-                    isTips: true
+                    isTips: true,
+                    tipMode: 0
                   })
                   that.popupCancel()
                   break
@@ -242,32 +255,50 @@ Page({
                   that.popupCancel()
                   break
                 case 1:
-                  // 
+                  that.commomModal("账号异常，请重新登录")
+                  that.setData({
+                    isTips: true
+                  })
+                  that.popupCancel()
                   break
                 case 2:
-                  // can't renew
+                    that.commomModal("您已经续借过这本书了")
                   break
                 case -1:
-                  //server error
+                  
                   break
                 case 101:
-                  // 验证码错误
-                  that.renewCaptchaUpdate()
+                  wx.showModal({
+                    title: "",
+                    content: "验证码错误",
+                    success: function (res) {
+                      if (res.confirm) {
+                        that.renewCaptchaUpdate()
+                      }
+                      else if (res.cancel) {
+                        that.popupCancel()
+                      }
+                    }
+                  })
                   break
                 case 102:
+                  that.commomModal("账号异常，请重新登录")
+                  that.setData({
+                    isTips: true,
+                    tipMode: 0
+                  })
                   that.popupCancel()
                   break
                 default:
-                // unkonwn login error
+                  that.commomModal("未知登录问题")
+                  that.popupCancel()
               }
             }
             else {
-              console.log("bad connection")
-            }
+              that.commomModal("服务器维护中")            }
           },
           fail: function (res) {
-            console.log("bad connection")
-          },
+            that.commomModal("请检查网络连接")          },
         })
       }
       else if (inputCaptcha == "") {
@@ -301,7 +332,7 @@ Page({
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
       this.setData({
-        isTips: true
+        isTips: false
       })
       var headers = {
         'content-type': 'application/json',
@@ -334,21 +365,22 @@ Page({
               that.popupShow(base64ImgUrl)
             }
             else {
-              // back and try again
+              that.commomModal("服务器维护中")
             }
           }
           else {
-            console.log("bad connection")
+            that.commomModal("服务器维护中")
           }
         },
         fail: function (res) {
-          console.log("bad connection")
+          that.commomModal("请检查网络连接")
         },
       })
     }
     else {
       this.setData({
-        isTips: false
+        isTips: true,
+        tipMode: 0
       })
       // not login
     }
@@ -363,7 +395,7 @@ Page({
     const cookie = wx.getStorageSync('session_key')
     if (cookie) {
       this.setData({
-        isTips: true
+        isTips: false
       })
       var headers = {
         'content-type': 'application/json',
@@ -395,26 +427,32 @@ Page({
               that.popupShow(base64ImgUrl)
             }
             else {
-              // back and try again
+              that.commomModal("服务器维护中")
             }
           }
           else {
-            console.log("bad connection")
+            that.commomModal("服务器维护中")
           }
         },
         fail: function (res) {
-          console.log("bad connection")
+          that.commomModal("请检查网络连接")
         },
       })
     }
     else {
       this.setData({
-        isTips: false
+        isTips: true,
+        tipMode: 0
       })
       // not login
     }
   },
 
+  loginTap: function() {
+    wx.navigateTo({
+      url: '../login/login'
+    })
+  },
 
   commomModal: function ( content) {
     wx.showModal({

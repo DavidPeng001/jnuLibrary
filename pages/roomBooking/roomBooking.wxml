@@ -1,37 +1,47 @@
 <!--roomBooking.wxml-->
-<scroll-view class="bg">
-  <view class="tip">您正在预订研修室{{roomName}}, 请确定以下信息：</view>
-  <view class="pickerForm">
-    <picker bindchange="datePickerChange" value="{{dateIndex}}" range="{{dateArray}}">
-      <view class='pickerView'>
-        <view class="pickerLabel">预订日期</view>
-        <view class="pickerValue">
-          {{dateArray[dateIndex]}}
-          <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
-        </view>
-      </view>
-    </picker>
-    <view class="line"></view>
-    <picker bindchange="startPickerChange" value="{{startIndex}}" range="{{startTimeArray}}">
-      <view class='pickerView'>
-        <view class="pickerLabel">开始时间</view>
-        <view class="pickerValue">
-          {{startTimeArray[startIndex]}}
-          <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
-        </view>
-      </view>
-    </picker>
-    <view class="line"></view>
-    <picker bindchange="endPickerChange" value="{{endIndex}}" range="{{endTimeArray}}">
-      <view class='pickerView'>
-        <view class="pickerLabel">结束时间</view>
-        <view class="pickerValue">
-          {{endTimeArray[endIndex]}}
-          <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
-        </view>
-      </view>
-    </picker>
+<view wx:if="{{isLogin == false}}" class="bg">
+  <view class="login-tip">
+    您尚未登录，登录后可开启研修间预订功能
   </view>
-  <!-- <view class='line'></view> -->
-  <button type='primary' bindtap = "bindtap" class="searchBtn">确认</button>
-</scroll-view>
+  <view class="login-view">
+    <button bindtap="loginTap" size="mini" type="primary" >马上登录</button>
+  </view>
+</view>
+<view wx:else>
+  <scroll-view class="bg">
+    <view class="tip">您正在预订研修室{{roomName}}, 请确定以下信息：</view>
+    <view class="pickerForm">
+      <picker bindchange="datePickerChange" value="{{dateIndex}}" range="{{dateArray}}">
+        <view class='pickerView'>
+          <view class="pickerLabel">预订日期</view>
+          <view class="pickerValue">
+            {{dateArray[dateIndex]}}
+            <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
+          </view>
+        </view>
+      </picker>
+      <view class="line"></view>
+      <picker bindchange="startPickerChange" value="{{startIndex}}" range="{{startTimeArray}}">
+        <view class='pickerView'>
+          <view class="pickerLabel">开始时间</view>
+          <view class="pickerValue">
+            {{startTimeArray[startIndex]}}
+            <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
+          </view>
+        </view>
+      </picker>
+      <view class="line"></view>
+      <picker bindchange="endPickerChange" value="{{endIndex}}" range="{{endTimeArray}}">
+        <view class='pickerView'>
+          <view class="pickerLabel">结束时间</view>
+          <view class="pickerValue">
+            {{endTimeArray[endIndex]}}
+            <image src="/images/dark_arrow_right.png" class="pickerIcon"></image>
+          </view>
+        </view>
+      </picker>
+    </view>
+    <!-- <view class='line'></view> -->
+    <button type='primary' bindtap = "bindtap" class="searchBtn">确认</button>
+  </scroll-view>
+</view>

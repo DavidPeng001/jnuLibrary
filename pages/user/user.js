@@ -2,7 +2,7 @@
 const app = getApp()
 Page({
   data: {
-    personnelno: ''
+    personnelno: null
   },
   onShow: function() {
     this.quickLogin()
@@ -19,13 +19,37 @@ Page({
     else {
       console.log('-- Getting Personnelno --')
       app.getPersonnelno()
+      let { personnelno } = app.globalData
+      if (personnelno != null) {
+        this.setData({
+          personnelno: personnelno,
+        })
+        return
+      }
     }
-    return
+    
   },
   logintap: function() {
-    wx.navigateTo({
-      url: '../login/login'
-    })
-    // TODO: 若已经登录，点击转到注销界面
+    if (this.data.personnelno) {
+      wx.showModal({
+        title: "",
+        content: "是否确定退出登录？",
+        success: function (res) {
+          if (res.confirm) {
+            app.logout()
+          }
+          else if (res.cancel) {
+            
+          }
+        }
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '../login/login'
+      })
+
+    }
+    
   }
 })

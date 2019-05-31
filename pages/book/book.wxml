@@ -1,8 +1,19 @@
 <!--pages/room/room.wxml-->
 <view wx:if="{{isTips}}" class="bg">
-  <view class="tip">
-    {{errorTip}} 00
+  <view wx:if="{{tipMode == 0}}">
+    <view class="tip">
+      您尚未登录，登录后可开启图书续借功能
+    </view>
+    <view class="login-view" wx:if="{{}}">
+      <button bindtap="loginTap" size="mini" type="primary" >马上登录</button>
+    </view>
   </view>
+  <view wx:else>
+    <view class="tip">
+      无借书记录，快去图书馆借几本书吧
+    </view>
+  </view>
+  
 </view>
 <view wx:else>
   <scroll-view class="bg">
@@ -30,7 +41,7 @@
   </scroll-view>
 </view>
 <view class="popup">
-    <import src="/template/captchaPopup.wxml" />
-    <template is="captchaPopup" data="{{...popup}}" />
-  </view>
+  <import src="/template/captchaPopup.wxml" />
+  <template is="captchaPopup" data="{{...popup}}" />
+</view>
 

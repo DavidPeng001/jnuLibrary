@@ -92,7 +92,8 @@ Page({
       dataType: 'json',
       success: function(res) {
         if (res.statusCode == 200) {
-          if (res.data == []) {
+          if (res.data.length == 0) {
+            console.log("no room")
             that.commomModal("该时段暂无空闲研修间，请尝试更改时段与日期")
           }
           else {

@@ -2,6 +2,18 @@
 page {
   background-color: #dadada;
 }
+.login-tip {
+  padding: 400rpx 0 20rpx 0;
+  color: #444;
+  /* font-size: smaller */
+  text-align: center;
+} 
+.login-view {
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .bg {
   background-color: #dadada;
 }

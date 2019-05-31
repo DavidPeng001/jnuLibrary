@@ -41,6 +41,17 @@ App({
     } 
     return
   },
+
+  logout: function(){
+    var that = this
+    wx.removeStorage({
+      key: 'session_key',
+      success: function (res) {
+        that.globalData.personnelno = null
+        console.log("logout success")
+      }
+    })
+  },
   
   utf8Decode: function(utftext) {
     var string = ''
